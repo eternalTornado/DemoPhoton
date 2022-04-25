@@ -8,6 +8,11 @@ public class LauchManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] MainGameUI gameUI;
 
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     void Start()
     {
         gameUI.OnConnect += OnClickedConnect;
@@ -100,6 +105,8 @@ public class LauchManager : MonoBehaviourPunCallbacks
         base.OnCreatedRoom();
 
         Debug.LogError("Create room success");
+
+        PhotonNetwork.LoadLevel("GameScene");
     }
 
     public override void OnJoinedRoom()
