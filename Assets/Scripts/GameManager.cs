@@ -6,10 +6,17 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] GameObject playerPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (PhotonNetwork.IsConnectedAndReady)
+        {
+            float value = Random.Range(-20f, 20f);
 
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(value, 0f, value), Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
@@ -31,7 +38,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
-        //Debug.LogError()
+        Debug.LogError($"player {newPlayer.NickName} has just joined");
     }
 
     #endregion
